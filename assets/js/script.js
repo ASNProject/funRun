@@ -51,27 +51,6 @@ document.getElementById("uploadExcel").addEventListener("change", function (e) {
     reader.readAsArrayBuffer(file);
 });
 
-// function onScanSuccess(decodedText) {
-//     beepSound.play().catch(e => console.log("Audio play error:", e)); // <-- di sini
-//     document.getElementById("result").textContent = `Scanned: ${decodedText}`;
-
-//     const peserta = pesertaList.find(p =>
-//     p.nomor_peserta.toString().trim() === decodedText.trim()
-//     );
-
-//     const container = document.querySelector(".scan-data");
-
-//     if (peserta) {
-//     const row = document.createElement("div");
-//     row.innerHTML = `✅ <strong>${peserta.nama}</strong> (ID: ${peserta.id}) - ${new Date().toLocaleTimeString()}`;
-//     container.prepend(row);
-//     } else {
-//     const row = document.createElement("div");
-//     row.innerHTML = `❌ Nomor ${decodedText} tidak ditemukan.`;
-//     container.prepend(row);
-//     }
-// }
-
 const scannedNomorSet = new Set(); 
 const scannedRows = [];
 
@@ -111,7 +90,20 @@ function onScanSuccess(decodedText) {
     }
 }
 
-  function openTab() {
-    window.open("screen.html", "_blank");
-  }
+function clearScan() {
+// Kosongkan elemen hasil scan
+document.getElementById("result").textContent = "Waiting...";
+
+// Kosongkan daftar history
+const container = document.querySelector(".scan-data");
+container.innerHTML = "";
+
+// Kosongkan set & array hasil scan sebelumnya
+scannedNomorSet.clear();
+scannedRows.length = 0;
+}
+
+function openTab() {
+window.open("screen.html", "_blank");
+}
 

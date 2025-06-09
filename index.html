@@ -34,12 +34,19 @@
                 </div>
                 <div class="col-md-6">
                     <p class="mt-3" id="text-white-24-bold">Result Scan</p>
-                    <p id="result" class="mt-3">Waiting...</p>
+                    <p id="result" class="mt-3">Scan a participant to begin.</p>
                     <div style="margin-left: 20px; margin-right: 20px;">
                         <input type="file" id="uploadExcel" accept=".xlsx" class="form-control" style="width: 100%;" />
                     </div>
-                    <p class="note">Note: Please upload participant data file (.xlsx) first!</p>
-                    <button id="button" onclick="openTab()">Open Screen</button>
+                    <p class="note">
+                        Upload the participant list (.xlsx) first to enable accurate scan result matching.
+                    </p>
+
+                    <div class="d-flex justify-content-center gap-2">
+                        <button id="button" type="button" class="btn btn-primary" onclick="openTab()">Open Screen</button>
+                        <button id="clear" type="button" class="btn btn-danger" onclick="clearScan()">Clear</button>
+                        <button id="export" type="button" class="btn btn-success" onclick="exportToExcel()">Export to Excel</button>
+                    </div>
                     <p class="history mb-2">History Data</p>
                     <div class="scan-data text-start">
                     </div>
