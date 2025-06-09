@@ -26,7 +26,7 @@ This application is developed to facilitate the scanning of barcodes for partici
 <img src="assets/images/logo_campus_fairrun white.png">
 
 ### Screenshot 
-<img src="screenshot/screen1.png">
+<img src="screenshoot/screen1.png">
 
 ## How to Run
 #### Clone project
