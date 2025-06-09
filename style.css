@@ -20,14 +20,17 @@
 }
 
 #reader {
-width: 720px;
-height: 100px;
 border: 2px solid #666;
 margin: 20px;
 }
 #result {
 font-size: 18px;
 font-weight: bold;
+border: 1px solid #ccc;
+border-radius: 10px;
+padding: 10px;
+margin: 20px;
+background-color: white;
 }
 
 #image1 {
@@ -38,7 +41,7 @@ margin: 20px;
 
 .trapesium-wrapper {
     width: 100%;
-    height: 200px;
+    height: 100%;
     position: relative;
     overflow: hidden;
 }
@@ -48,7 +51,7 @@ margin: 20px;
     top: 0;
     left: 0;
     width: 100%;
-    height: 80%;
+    height: 100%;
     background: white;
     clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
 }
@@ -64,4 +67,98 @@ margin: 20px;
 
 .logo-container img {
     height: 80px;
+}
+
+#text-white-24-bold {
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.history {
+    color: white;
+    font-weight: bold;
+    text-align: start;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.scan-data {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: white;
+}
+
+#header {
+    min-height: 90vh;
+}
+
+.footer-text-center {
+    color: white;
+}
+
+.footer-gradient {
+background: linear-gradient(135deg, #0b3c66, #1462a0);
+}
+
+.footer-text {
+font-size: 14px;
+font-weight: 400;
+margin: 0;
+}
+
+.running-text-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  /* background-color: #1363DF; */
+}
+
+.running-text {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-left 15s linear infinite;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.note {
+    color: #FFC107;
+    text-align: start;
+    margin-left: 20px;
+    font-style: italic;
+}
+
+#button {
+    padding: 5px 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ECB939;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#button:hover {
+    background-color: #d89e1e;
+    transform: translateY(-2px);
+}
+
+#button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
