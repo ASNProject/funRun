@@ -20,13 +20,10 @@
 
 This application is developed to facilitate the scanning of barcodes for participants in running events. When a participant's barcode is scanned, the app instantly processes and displays their information on a dedicated tab screen. The displayed details include the participant’s unique number, full name, and initials, allowing event organizers or staff to quickly verify and manage participant data in real-time. The tab-based interface ensures easy navigation and clear visibility of all scanned participants, enhancing efficiency during event check-ins or monitoring.
 
-<p style="font-weight: bold; text-align: center;">UPB X JAGARAGA</p>
-
-
 <img src="assets/images/logo_campus_fairrun white.png">
 
 ### Screenshot 
-<img src="screenshoot/screen1.png">
+<img src="screenshoot/screen2.png">
 
 ## How to Run
 #### Clone project
