@@ -17,11 +17,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Scan Result Display</title>
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
-<body>
-    <h1>Hello World</h1>
+<body id="bodyScreen">
+  <img src="assets/images/logo.png" alt="" class="top-right-corner-image"/>
+  <img src="assets/images/cmpsfrn.png" alt="" class="top-center-image"/>
+  <img src="assets/images/Daun.png" alt="" class="top-corner-image"/>
+  <div class="center-container">
+    <div class="center-text">
+      <h1 class="initial-text" id="initial"></h1>
+      <h1 class="nama-text" id="nama"></h1>
+      <h1 class="nomor-text" id="nomor"></h1>
+    </div>
+  </div>
+  <img src="assets/images/burung.png" alt="" class="bottom-corner-image"/>
+  <img src="assets/images/sosmed.png" alt="" class="bottom-center-image"/>
+  <script>
+    function getInitials(nama) {
+      return nama
+        .split(' ')
+        .map(word => word[0].toUpperCase())
+        .join('');
+    }
+    let lastNomor = "";
+
+    function updateDisplay() {
+      const scanData = JSON.parse(localStorage.getItem("currentScan"));
+      if (scanData && scanData.nomor !== lastNomor) {
+        lastNomor = scanData.nomor;
+
+        const initial = getInitials(scanData.nama);;
+        document.getElementById("initial").textContent = initial;
+        document.getElementById("nama").textContent = `${scanData.nama}`;
+        document.getElementById("nomor").textContent = `${scanData.nomor}`;
+      }
+    }
+
+    setInterval(updateDisplay, 1000);
+  </script>
 </body>
 </html>

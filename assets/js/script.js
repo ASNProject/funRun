@@ -54,6 +54,7 @@ document.getElementById("uploadExcel").addEventListener("change", function (e) {
 const scannedNomorSet = new Set(); 
 const scannedRows = [];
 
+
 function onScanSuccess(decodedText) {
     const nomor = decodedText.trim();
 
@@ -75,35 +76,69 @@ function onScanSuccess(decodedText) {
         const container = document.querySelector(".scan-data");
         const row = document.createElement("div");
         row.innerHTML = `✅ <strong>${peserta.nama}</strong> - ${new Date().toLocaleTimeString()}`;
-
         container.prepend(row);
         scannedRows.unshift(row);
 
+        const scanData = {
+            nomor: nomor,
+            nama: peserta.nama,
+            waktu: new Date().toLocaleTimeString()
+        };
+
+        const today = new Date().toISOString().split("T")[0]; // contoh: 2025-06-29
+        const key = `scanHistory-${today}`;
+
+        let dailyHistory = JSON.parse(localStorage.getItem(key) || "[]");
+
+        // Pastikan belum discan sebelumnya
+        const sudahAda = dailyHistory.some(item => item.nomor === nomor);
+        if (!sudahAda) {
+            dailyHistory.unshift(scanData);
+            localStorage.setItem(key, JSON.stringify(dailyHistory));
+        }
+
+        // Simpan untuk tampilkan di layar
+        localStorage.setItem("currentScan", JSON.stringify({
+            nomor: nomor,
+            nama: peserta.nama
+        }));
+
         if (scannedRows.length > 5) {
-            const removedRow = scannedRows.pop();
-            removedRow.remove(); 
+            scannedRows.pop()?.remove();
         }
     } else {
         beepSound.play().catch(e => console.log("Audio play error:", e));
-        console.warn(`Nomor ${nomor} tidak ditemukan di daftar.`);
         document.getElementById("result").textContent = `❌ Nomor ${nomor} tidak ditemukan.`;
     }
 }
 
+
 function clearScan() {
-// Kosongkan elemen hasil scan
-document.getElementById("result").textContent = "Waiting...";
-
-// Kosongkan daftar history
-const container = document.querySelector(".scan-data");
-container.innerHTML = "";
-
-// Kosongkan set & array hasil scan sebelumnya
-scannedNomorSet.clear();
-scannedRows.length = 0;
+  document.getElementById("result").textContent = "Waiting...";
+  document.querySelector(".scan-data").innerHTML = "";
+  scannedNomorSet.clear();
+  scannedRows.length = 0;
+  localStorage.removeItem("currentScan"); 
 }
 
 function openTab() {
 window.open("screen.html", "_blank");
 }
 
+function exportToExcel() {
+    const today = new Date().toISOString().split("T")[0]; // "2025-06-29"
+    const key = `scanHistory-${today}`;
+    const scanHistory = JSON.parse(localStorage.getItem(key) || "[]");
+
+    if (scanHistory.length === 0) {
+        alert("Belum ada data scan hari ini.");
+        return;
+    }
+
+    const worksheet = XLSX.utils.json_to_sheet(scanHistory);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "ScanResult");
+
+    // Nama file: scan-2025-06-29.xlsx
+    XLSX.writeFile(workbook, `scan-${today}.xlsx`);
+}
