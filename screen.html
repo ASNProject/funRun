@@ -47,16 +47,37 @@
     let lastNomor = "";
 
     function updateDisplay() {
-      const scanData = JSON.parse(localStorage.getItem("currentScan"));
-      if (scanData && scanData.nomor !== lastNomor) {
+      const scanDataStr = localStorage.getItem("currentScan");
+      if (!scanDataStr) return;
+
+      let scanData;
+      try {
+        scanData = JSON.parse(scanDataStr);
+      } catch (e) {
+        console.warn("Failed to parse currentScan:", e);
+        return;
+      }
+
+      console.log(scanData);
+
+      if (scanData) {
         lastNomor = scanData.nomor;
 
-        const initial = getInitials(scanData.nama);;
+        const initial = getInitials(scanData.nama);
         document.getElementById("initial").textContent = initial;
-        document.getElementById("nama").textContent = `${scanData.nama}`;
-        document.getElementById("nomor").textContent = `${scanData.nomor}`;
+        document.getElementById("nama").textContent = scanData.nama;
+        document.getElementById("nomor").textContent = scanData.nomor;
       }
     }
+
+    updateDisplay();
+
+    window.addEventListener("storage", function (e) {
+      if (e.key === "currentScan") {
+        updateDisplay();
+      }
+    })
+
 
     setInterval(updateDisplay, 1000);
   </script>

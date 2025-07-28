@@ -45,6 +45,11 @@ document.getElementById("uploadExcel").addEventListener("change", function (e) {
     const workbook = XLSX.read(data, { type: "array" });
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     pesertaList = XLSX.utils.sheet_to_json(sheet);
+    pesertaList = pesertaList.map(p => ({
+        ...p,
+        nomor_peserta: p.nomor_peserta?.toString().trim(),
+        nama: p.nama?.toString().trim(),
+    }));
     alert("Data peserta berhasil dimuat.");
     };
 
@@ -64,7 +69,7 @@ function onScanSuccess(decodedText) {
     }
 
     const peserta = pesertaList.find(p =>
-        p.nomor_peserta.toString().trim() === nomor
+        p.nomor_peserta.toString().trim().toUpperCase() === nomor.toUpperCase()
     );
 
     if (peserta) {
